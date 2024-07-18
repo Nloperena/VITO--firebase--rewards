@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VITO Rewards Program</title>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>VITO Rewards Program</title>
+        <style>
+            body,
+            html {
+                margin: 0 auto;
+                padding: 0;
+                font-family: 'Poppins', sans-serif;
+                text-align: center;
+            }
+
+            body {
+                background-image: url("https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/bqgj1n1p/56b/teh/ltl/comic-background.png");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+            }
+
+            .container {
+                max-width: 800px;
+                width: 80%;
+                margin: 20px auto;
+                background-color: #ffdd00;
+                color: #333;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 800px rgba(0, 0, 0, 9);
+            }
+
+            .title-section {
+                background-color: #000;
+                color: #ffdd00;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+                margin-bottom: 2rem;
+            }
+
+            .title-section h1 {
+                font-size: 34px;
+                font-weight: 900;
+                font-style: italic;
+                margin: 0;
+            }
+
+            .title-section p {
+                margin: 10px 0 0 0;
+                font-size: 18px;
+                color: #ffdd00;
+            }
+
+            .explanation-section {
+                background-color: #ffdd00;
+                color: #000;
+                padding: 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+
+            .form-section {
+                border-radius: 2rem;
+                padding: 3rem;
+                margin: 2rem 0;
+            }
+
+            .form-section:nth-of-type(odd) {
+                background-color: #000;
+                color: #ffdd00;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+            }
+
+            .form-section:nth-of-type(even) {
+                background-color: #ffdd00;
+                color: #000;
+
+            }
+
+            h2 {
+                font-size: 28px;
+                font-weight: 700;
+                margin-top: 30px;
+                margin-bottom: 20px;
+                color: inherit;
+            }
+
+            .form-group {
+                margin: 10px 0;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 5px;
+                font-weight: 600;
+                color: inherit;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 10px;
+                box-sizing: border-box;
+                text-align: center;
+                border: 1px solid #333;
+                border-radius: 4px;
+            }
+
+            .form-group .call-button,
+            .form-group .text-testimonial-button {
+                display: inline-block;
+                width: 35%;
+                padding: 10px;
+                background: #ffdd00;
+                color: black;
+                border: none;
+                cursor: pointer;
+                border-radius: 40px;
+                margin: 1rem auto;
+                font-size: 20px;
+                font-weight: 700;
+                font-style: italic;
+                transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+                text-decoration: none;
+            }
+
+            .form-group button {
+                display: inline-block;
+                width: 35%;
+                padding: 10px;
+                background: #000000;
+                color: #ffffff;
+                border: none;
+                cursor: pointer;
+                border-radius: 40px;
+                margin: 1rem auto;
+                font-size: 20px;
+                font-weight: 700;
+                font-style: italic;
+                transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+                text-decoration: none;
+            }
+
+            .form-group button:hover {
+                background: #facd0e;
+                color: #000000;
+            }
+
+            .call-button:hover,
+            .form-group .text-testimonial-button:hover {
+                background: #333;
+                color: #ffdd00;
+            }
+
+            .contact-buttons {
+                display: flex;
+                justify-content: space-around;
+                margin-top: 20px;
+            }
+
+            .checkbox-wrapper {
+                display: block;
+                align-items: center;
+                font-size: 12px;
+                justify-content: flex-start;
+                gap: 10px;
+                margin-top: 2rem;
+            }
+
+            .form-group .checkbox-wrapper {
+                justify-content: flex-start;
+            }
+
+            .form-group.checkbox-wrapper input[type="checkbox"] {
+                margin-right: 100px;
+            }
+
+            .form-section-img {
+                width: 20%;
+            }
+        </style>
+        <!-- Firebase App (the core Firebase SDK) -->
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+
+    </head>
+
+<body>
+    <div class="container">
+        <div class="title-section">
+            <h1>Thank You From the VITO Team</h1>
+            <p>Join our free rewards program and earn great rewards by sharing your feedback!</p>
+        </div>
+        <div class="login-container">
+            <button onclick="signIn()">Sign In with Google</button>
+            <button onclick="signOut()">Sign Out</button>
+        </div>
+        <div class="explanation-section">
+            <p>By submitting your review of our services, you become eligible to receive complimentary rewards. Please
+                select one or more of the following participation options</p>
+        </div>
+
+        <div class="form-section">
+            <img class='form-section-img'
+                src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/bqgj1n1p/g09/ucy/2u5/icons-1.png">
+            <h2>Business Information</h2>
+            <div class="form-group">
+                <label for="business-name">Business Name:</label>
+                <input type="text" id="business-name" name="business-name" required>
+            </div>
+            <div class="form-group">
+                <label for="business-address">Business Address:</label>
+                <input type="text" id="business-address" name="business-address" required>
+            </div>
+            <div class="form-group">
+                <label for="manager-name">Manager/Reviewer Name:</label>
+                <input type="text" id="manager-name" name="manager-name" required>
+            </div>
+            <div class="form-group">
+                <label for="business-phone">Phone Number:</label>
+                <input type="tel" id="business-phone" name="business-phone" required>
+            </div>
+            <div class="form-group">
+                <label for="business-email">Email</label>
+                <input type="email" id="business-email" name="business-email" required>
+            </div>
+            <div class="form-group">
+                <label for="vito-model">VITO Model</label>
+                <select id="vito-model" name="vito-model" required>
+                    <option value="VS">VS</option>
+                    <option value="VM">VM</option>
+                    <option value="VL">VL</option>
+                    <option value="XS">XS</option>
+                    <option value="XM">XM</option>
+                    <option value="XL">XL</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="serial-number">Serial Number</label>
+                <input type="text" id="serial-number" name="serial-number" required>
+            </div>
+            <div class="form-group checkbox-wrapper">
+                <label for="vito-model">TERMS AND CONDITIONS</label>
+                <input type="checkbox" id="agreement-phone-confirm" name="agreement-phone-confirm" required>
+                <label for="agreement-phone-confirm">I hereby acknowledge and consent that the provided information and
+                    testimonial may be utilized for promotional and advertising purposes. I further waive any rights to
+                    retract the submission or claim the reward value in cash or any other form of monetary
+                    compensation.</label>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <img class='form-section-img'
+                src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/bqgj1n1p/902/kje/ffx/icons-2.png">
+            <form onsubmit="submitGoogleReview(event)">
+                <h2>1. Google Review</h2>
+                <p>Provide a review on Google and upload a screenshot of the review to receive a complimentary 10-piece
+                    particle filter sleeve.</p>
+                <div class="form-group">
+                    <label for="google-review-screenshot">Upload Screenshot:</label>
+                    <input type="file" id="google-review-screenshot" name="google-review-screenshot" accept="image/*"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <img class='form-section-img'
+                src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/bqgj1n1p/lxf/qn1/p3h/icons-3.png">
+            <form onsubmit="submitPhoneTestimonial(event)">
+                <h2>2. Phone Testimonial</h2>
+                <p>Contact us at +1 (847) 859-0398 to share your testimonial. Upon completion of the call, submit your
+                    confirmation to receive a complimentary 10-piece particle filter sleeve.</p>
+                <div class="form-group">
+                    <label for="phone-testimonial-text">Write your testimonial:</label>
+                    <textarea id="phone-testimonial-text" name="phone-testimonial-text" rows="4" required></textarea>
+                </div>
+                <div class="form-group checkbox-wrapper">
+                    <input type="checkbox" id="agreement-phone" name="agreement-phone" required>
+                    <label for="agreement-phone">Check to confirm that you called us.</label>
+                </div>
+                <div class="form-group contact-buttons">
+                    <a href="tel:+18478590398" class="call-button">Call Us Now</a>
+                    <button type="submit" class="text-testimonial-button">Submit</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="form-section">
+            <img class='form-section-img'
+                src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/bqgj1n1p/plh/abz/i27/icons-4.png">
+            <form onsubmit="submitVideoTestimonial(event)">
+                <h2>3. Video Testimonial</h2>
+                <p>Record a 20-25 second video featuring yourself and the VITO machine. Upload the video to receive a
+                    complimentary 100-piece particle filter sleeve (valued at $270).</p>
+                <div class="form-group">
+                    <label for="video-testimonial-video">Upload Video:</label>
+                    <input type="file" id="video-testimonial-video" name="video-testimonial-video" accept="video/*"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBBUR_zvyedcOuTBvZTlQejLR79ODAosGA",
+            authDomain: "vito-rewards-landing.firebaseapp.com",
+            projectId: "vito-rewards-landing",
+            storageBucket: "vito-rewards-landing",
+            messagingSenderId: "529852229888",
+            appId: "1:529852229888:web:7c1cf59c9d42b1dc4a6be5",
+            measurementId: "G-M76SDJVPW1"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        const auth = firebase.auth(); // Initialize Firebase Auth
+
+        // Sign-in function
+        async function signIn() {
+            try {
+                const provider = new firebase.auth.GoogleAuthProvider();
+                await auth.signInWithPopup(provider);
+                console.log("User signed in");
+            } catch (error) {
+                console.error("Error signing in: ", error);
+            }
+        }
+
+        // Sign-out function
+        async function signOut() {
+            try {
+                await auth.signOut();
+                console.log("User signed out");
+            } catch (error) {
+                console.error("Error signing out: ", error);
+            }
+        }
+
+        // Function to submit Google review
+        async function submitGoogleReview(event) {
+            event.preventDefault();
+
+            const user = auth.currentUser;
+            if (!user) {
+                alert("You need to sign in first.");
+                return;
+            }
+
+            const businessName = document.getElementById('business-name').value;
+            const businessAddress = document.getElementById('business-address').value;
+            const managerName = document.getElementById('manager-name').value;
+            const businessPhone = document.getElementById('business-phone').value;
+            const businessEmail = document.getElementById('business-email').value;
+            const vitoModel = document.getElementById('vito-model').value;
+            const serialNumber = document.getElementById('serial-number').value;
+            const googleReviewScreenshot = document.getElementById('google-review-screenshot').files[0];
+
+            try {
+                const docRef = await db.collection("reviews").add({
+                    businessName,
+                    businessAddress,
+                    managerName,
+                    businessPhone,
+                    businessEmail,
+                    vitoModel,
+                    serialNumber,
+                    googleReviewScreenshot: googleReviewScreenshot.name,
+                    reviewType: 'Google',
+                    userId: user.uid // Store user ID for reference
+                });
+                console.log("Google Review submitted with ID: ", docRef.id);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
+        }
+
+        // Function to submit phone testimonial
+        async function submitPhoneTestimonial(event) {
+            event.preventDefault();
+
+            const user = auth.currentUser;
+            if (!user) {
+                alert("You need to sign in first.");
+                return;
+            }
+
+            const phoneTestimonialText = document.getElementById('phone-testimonial-text').value;
+            const agreementPhone = document.getElementById('agreement-phone').checked;
+
+            try {
+                const docRef = await db.collection("testimonials").add({
+                    phoneTestimonialText,
+                    agreementPhone,
+                    testimonialType: 'Phone',
+                    userId: user.uid // Store user ID for reference
+                });
+                console.log("Phone Testimonial submitted with ID: ", docRef.id);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
+        }
+
+        // Function to submit video testimonial
+        async function submitVideoTestimonial(event) {
+            event.preventDefault();
+
+            const user = auth.currentUser;
+            if (!user) {
+                alert("You need to sign in first.");
+                return;
+            }
+
+            const videoTestimonialVideo = document.getElementById('video-testimonial-video').files[0];
+
+            try {
+                const docRef = await db.collection("testimonials").add({
+                    videoTestimonialVideo: videoTestimonialVideo.name,
+                    testimonialType: 'Video',
+                    userId: user.uid // Store user ID for reference
+                });
+                console.log("Video Testimonial submitted with ID: ", docRef.id);
+            } catch (e) {
+                console.error("Error adding document: ", e);
+            }
+        }
+
+        // Ensure the forms are linked to the correct functions
+        document.querySelector('form[onsubmit="submitGoogleReview(event)"]').addEventListener('submit', submitGoogleReview);
+        document.querySelector('form[onsubmit="submitPhoneTestimonial(event)"]').addEventListener('submit', submitPhoneTestimonial);
+        document.querySelector('form[onsubmit="submitVideoTestimonial(event)"]').addEventListener('submit', submitVideoTestimonial);
+
+        console.log(db);
+    </script>
+</body>
+
+</html>
