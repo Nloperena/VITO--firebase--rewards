@@ -20,7 +20,8 @@
             }
 
             body {
-                background-image: url("https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/bqgj1n1p/56b/teh/ltl/comic-background.png");
+                /* background-image: url("https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/bqgj1n1p/56b/teh/ltl/comic-background.png"); */
+                background-color: #555555;
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;
@@ -73,13 +74,13 @@
                 margin: 2rem 0;
             }
 
-            .form-section:nth-of-type(odd) {
+            .form-section:nth-of-type(even) {
                 background-color: #000;
                 color: #ffdd00;
                 box-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
             }
 
-            .form-section:nth-of-type(even) {
+            .form-section:nth-of-type(odd) {
                 background-color: #ffdd00;
                 color: #000;
 
@@ -131,9 +132,12 @@
                 font-style: italic;
                 transition: background-color 0.3s, border-color 0.3s, color 0.3s;
                 text-decoration: none;
+                stroke: #333;
+                stroke-width: 30px;
             }
 
             .form-group button {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
                 display: inline-block;
                 width: 35%;
                 padding: 10px;
@@ -142,7 +146,7 @@
                 border: none;
                 cursor: pointer;
                 border-radius: 40px;
-                margin: 1rem auto;
+                margin: 1rem;
                 font-size: 20px;
                 font-weight: 700;
                 font-style: italic;
@@ -201,7 +205,7 @@
             <h1>Thank You From the VITO Team</h1>
             <p>Join our free rewards program and earn great rewards by sharing your feedback!</p>
         </div>
-        <div class="login-container">
+        <div class="login-container form-group">
             <button onclick="signIn()">Sign In with Google</button>
             <button onclick="signOut()">Sign Out</button>
         </div>
